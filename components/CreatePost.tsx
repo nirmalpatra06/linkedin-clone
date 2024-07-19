@@ -25,6 +25,7 @@ const CreatePost = ({ user }: { user: any }) => {
           className="focus:outline-none w-full p-4 border border-black rounded-full"
         />
         <PostDialog
+          user={user}
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
           src={user?.imageUrl}

@@ -12,26 +12,47 @@ import React, { useRef, useState } from "react";
 import { readFileAsDataUrl } from "@/lib/utils";
 import Image from "next/image";
 import { Images } from "lucide-react";
+import { createPostAction } from "@/lib/serveraction";
 
 export function PostDialog({
+  user,
   openDialog,
   setOpenDialog,
   src,
 }: {
+  user: any;
   openDialog: boolean;
   setOpenDialog: any;
   src: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [selected, setSelected] = useState("");
+  const [selectedImg, setSelectedImg] = useState("");
+  const [inputText, setInputText] = useState<string>("");
+
+  const handleChange = (e: any) => {
+    setInputText(e.target.value);
+  };
 
   async function handleImageFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (file) {
       const dataUrl = await readFileAsDataUrl(file);
-      setSelected(dataUrl);
+      setSelectedImg(dataUrl);
     }
   }
+
+  const postActionHandler = async (formData: FormData) => {
+    const inputText = formData.get("input") as string;
+    // console.log(inputText);
+    try {
+      await createPostAction(inputText, selectedImg);
+    } catch (error) {
+      console.log("Error occured", error);
+    }
+    setInputText("");
+    setSelectedImg("");
+    setOpenDialog(false);
+  };
   return (
     <Dialog open={openDialog}>
       <DialogContent
@@ -42,14 +63,16 @@ export function PostDialog({
           <DialogTitle className="flex gap-2">
             <ProfileImage src={src} />
             <div>
-              <h1>Tukuna Patra</h1>
+              <h1>{`${user.firstName} ${user.lastName}`}</h1>
               <p className="text-xs">Post to Anyone</p>
             </div>
           </DialogTitle>
         </DialogHeader>
-        <form action="">
+        <form action={postActionHandler}>
           <div className="flex flex-col">
             <Textarea
+              onChange={handleChange}
+              value={inputText}
               className="border-none text-lg focus-visible:ring-0"
               name="input"
               id="name"
@@ -57,9 +80,9 @@ export function PostDialog({
             />
           </div>
           <div className="my-4">
-            {selected && (
+            {selectedImg && (
               <Image
-                src={selected}
+                src={selectedImg}
                 alt="selectedImage"
                 width={400}
                 height={400}

@@ -1,4 +1,4 @@
-import mongoose, { Model,Document } from "mongoose";
+import mongoose, { Model, Document } from "mongoose";
 import { IUser } from "./user.model";
 export interface IComment {
   textMsg: string;
@@ -29,11 +29,13 @@ const commentSchema = new mongoose.Schema<ICommentDocument>(
         required: true,
       },
       lastName: {
-        type: String,   
+        type: String,
         required: true,
       },
     },
   },
   { timestamps: true }
 );
-export const Comment:Model<ICommentDocument>=mongoose.models?.Comment || mongoose.model<ICommentDocument>("Comment",commentSchema)
+export const Comment: Model<ICommentDocument> =
+  mongoose.models?.Comment ||
+  mongoose.model<ICommentDocument>("Comment", commentSchema);

@@ -1,15 +1,17 @@
 import React from "react";
 import CreatePost from "./CreatePost";
 import Posts from "./Posts";
+import { getAllPost } from "@/lib/serveraction";
 
-const Feed = ({ user }: { user: any }) => {
+const Feed = async ({ user }: { user: any }) => {
   const userData = JSON.parse(JSON.stringify(user));
+  const posts = await getAllPost();
   return (
     <div className="flex-1 border border-black">
       {/* Create Post */}
       <CreatePost user={userData} />
       {/* Posts */}
-      <Posts />
+      <Posts posts={posts} />
     </div>
   );
 };

@@ -63,7 +63,7 @@ export function PostDialog({
           <DialogTitle className="flex gap-2">
             <ProfileImage src={src} />
             <div>
-              <h1>{`${user.firstName} ${user.lastName}`}</h1>
+              <h1>{`${user?.firstName} ${user?.lastName}`}</h1>
               <p className="text-xs">Post to Anyone</p>
             </div>
           </DialogTitle>

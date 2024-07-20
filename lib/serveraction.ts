@@ -11,7 +11,7 @@ cloudinary.config({
     api_key:process.env.API_KEY, 
     api_secret: process.env.API_SECRET
 });
-
+//Created post using server actions
 export const createPostAction = async (
   inputText: string,
   selectedImg: string
@@ -49,3 +49,16 @@ export const createPostAction = async (
     throw new Error(error);
   }
 };
+//Get all Post using server actions
+export const getAllPost=async()=>{
+  await connectDb();
+  try {
+    const posts =await Post.find().sort({createdAt:-1});
+    // console.log(posts);
+    return JSON.parse(JSON.stringify(posts));
+  } catch (error) {
+    console.log(error);
+    
+    
+  }
+}

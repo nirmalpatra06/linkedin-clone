@@ -6,6 +6,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import connectDb from "./db";
 import { currentUser } from "@clerk/nextjs/server";
 
+
 cloudinary.config({ 
     cloud_name:process.env.CLOUD_NAME, 
     api_key:process.env.API_KEY, 
@@ -13,12 +14,16 @@ cloudinary.config({
 });
 //Created post using server actions
 export const createPostAction = async (
+  user:any,
   inputText: string,
   selectedImg: string
 ) => {
+  // const nUser=user;
     await connectDb();
-    const user=await currentUser();
-  if (!user) throw new Error("User not authenticated");
+    // const clerkUser=await currentUser();
+    // console.log(clerkUser);
+    
+  if (!user) throw new Error("User is not authenticated");
   if (!inputText) throw new Error("Input field is required");
 
   const image = selectedImg;

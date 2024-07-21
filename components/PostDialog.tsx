@@ -45,7 +45,7 @@ export function PostDialog({
     const inputText = formData.get("input") as string;
     // console.log(inputText);
     try {
-      await createPostAction(inputText, selectedImg);
+      await createPostAction(user, inputText, selectedImg);
     } catch (error) {
       console.log("Error occured", error);
     }
@@ -76,7 +76,7 @@ export function PostDialog({
               className="border-none text-lg focus-visible:ring-0"
               name="input"
               id="name"
-              placeholder="What do you wnat to talk about?"
+              placeholder="What do you want to talk about?"
             />
           </div>
           <div className="my-4">

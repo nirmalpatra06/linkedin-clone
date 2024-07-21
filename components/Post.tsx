@@ -6,11 +6,16 @@ import { Button } from "./ui/button";
 import { Trash2 } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { IPostDocument } from "@/models/post.model";
+import PostContent from "./PostContent";
+import SocialOptions from "./SocialOptions";
+import ReactTimeago from "react-timeago";
 
 const Post = ({ post }: { post: IPostDocument }) => {
+  // console.log(post);
+
   const user = useUser();
   // console.log(user);
-  console.log(post);
+  // console.log(post);
 
   const fullName = post.user.firstName + " " + post.user.lastName;
   return (
@@ -28,15 +33,17 @@ const Post = ({ post }: { post: IPostDocument }) => {
             <p className="text-xs text-gray-500">
               @{user ? user.user?.username : "username"}
             </p>
-            <p className="text-xs text-gray-500">1hr ago</p>
+            <p className="text-xs text-gray-500">
+              <ReactTimeago date={new Date(post.createdAt)} />
+            </p>
           </div>
           <Button size={"icon"} variant={"outline"} className="rounded-full">
             <Trash2 />
           </Button>
         </div>
       </div>
-      {/* PostContent */}
-      {/* SocialOptions */}
+      <PostContent post={post} />
+      <SocialOptions />
     </div>
   );
 };

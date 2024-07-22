@@ -4,7 +4,8 @@ import { Post } from "@/models/post.model";
 import { IUser } from "@/models/user.model";
 import { v2 as cloudinary } from 'cloudinary';
 import connectDb from "./db";
-import { currentUser } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
+// import { currentUser } from "@clerk/nextjs/server";
 
 
 cloudinary.config({ 
@@ -28,10 +29,10 @@ export const createPostAction = async (
 
   const image = selectedImg;
   const databaseUser: IUser = {
-    firstName : user.firstName || "Nirmal",
-    lastName : user.lastName || "Patra",
-    userId :user.id,
-    profilePhoto : user.imageUrl,
+    firstName : user?.firstName || "Nirmal",
+    lastName : user?.lastName || "Patra",
+    userId :user?.id,
+    profilePhoto : user?.imageUrl,
   };
   let uploadResponse;
   try {
@@ -50,6 +51,7 @@ export const createPostAction = async (
         user:databaseUser
       })
     }
+    revalidatePath("/");
   } catch (error: any) {
     throw new Error(error);
   }

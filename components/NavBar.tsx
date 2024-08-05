@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 
 const NavBar = () => {
   return (
-    <nav className="fixed w-full bg-white z-10 shadow-sm">
+    <nav className="fixed w-full px-4 bg-white z-10 shadow-sm">
       <div className="max-w-6xl flex items-center justify-between h-14 mx-auto">
         <div className="flex justify-between gap-2">
           <Image src={`/logo.webp`} alt="Logo" width={35} height={35} />

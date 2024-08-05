@@ -12,7 +12,7 @@ const PostContent = ({ post }: { post: IPostDocument }) => {
           src={post?.imageUrl}
           width={500}
           height={500}
-          className="w-full mx-auto"
+          className="w-[90%] mx-auto"
         />
       )}
     </div>

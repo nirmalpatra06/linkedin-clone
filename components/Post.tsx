@@ -9,6 +9,7 @@ import { IPostDocument } from "@/models/post.model";
 import PostContent from "./PostContent";
 import SocialOptions from "./SocialOptions";
 import ReactTimeago from "react-timeago";
+import { deletePostAction } from "@/lib/serveraction";
 
 const Post = ({ post }: { post: IPostDocument }) => {
   // console.log(post);
@@ -18,6 +19,7 @@ const Post = ({ post }: { post: IPostDocument }) => {
   // console.log(post);
 
   const fullName = post.user.firstName + " " + post.user.lastName;
+  const loggedInUser = user.user?.id === post?.user?.userId;
   return (
     <div className="bg-white m-2 rounded-md border-gray-300">
       <div className="flex gap-2 p-4">
@@ -37,13 +39,22 @@ const Post = ({ post }: { post: IPostDocument }) => {
               <ReactTimeago date={new Date(post.createdAt)} />
             </p>
           </div>
-          <Button size={"icon"} variant={"outline"} className="rounded-full">
-            <Trash2 />
-          </Button>
+          {loggedInUser && (
+            <Button
+              onClick={() => {
+                const res = deletePostAction(post._id);
+              }}
+              size={"icon"}
+              variant={"outline"}
+              className="rounded-full"
+            >
+              <Trash2 />
+            </Button>
+          )}
         </div>
       </div>
       <PostContent post={post} />
-      <SocialOptions />
+      <SocialOptions post={post} />
     </div>
   );
 };

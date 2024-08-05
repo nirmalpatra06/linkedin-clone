@@ -73,19 +73,22 @@ export function PostDialog({
             <Textarea
               onChange={handleChange}
               value={inputText}
-              className="border-none text-lg focus-visible:ring-0"
+              className="border-none text-lg bg-gray-50 focus-visible:ring-0"
               name="input"
               id="name"
               placeholder="What do you want to talk about?"
             />
+            {inputText.length === 0 && (
+              <p className="py-1 text-gray-500">Text is required.</p>
+            )}
           </div>
-          <div className="my-4">
+          <div className="my-2 flex justify-center">
             {selectedImg && (
               <Image
                 src={selectedImg}
                 alt="selectedImage"
-                width={400}
-                height={400}
+                width={200}
+                height={70}
               />
             )}
           </div>

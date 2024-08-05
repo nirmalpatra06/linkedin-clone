@@ -14,7 +14,7 @@ interface Props {
 }
 const navItems: Props[] = [
   {
-    src: "/home",
+    src: "/",
     icon: <Home />,
     text: "Home",
   },

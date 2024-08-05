@@ -9,7 +9,7 @@ const Feed = async ({ user }: { user: any }) => {
   // console.log(posts);
 
   return (
-    <div className="flex-1 border border-black">
+    <div className="flex-1">
       {/* Create Post */}
       <CreatePost user={userData} />
       {/* Posts */}

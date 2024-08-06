@@ -9,7 +9,7 @@ export default async function Home() {
 
   return (
     <div className="mt-20">
-      <div className="max-w-6xl mx-auto flex justify-between gap-8">
+      <div className="max-w-6xl bg-[#f4f2ee] mx-auto flex justify-between gap-8">
         {/* Profile */}
         <Profile user={user} />
         {/* Feed */}
